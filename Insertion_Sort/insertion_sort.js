@@ -70,7 +70,7 @@ function insertionSortHighToLow(array) {
     }
     return array;
 }
-insertionSortHighToLow(array);  // [55, 23, 45, 12, 5, 3, 4]
+insertionSortHighToLow(array);  // [55, 45,23, 12, 5, 3, 4]
 
 /*
  *** Second Way ***
