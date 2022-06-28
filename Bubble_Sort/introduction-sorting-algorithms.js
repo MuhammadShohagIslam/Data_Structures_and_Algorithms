@@ -5,6 +5,11 @@
         Example: 1. Sorting numbers from smallest to largest
                         2. Sorting names alphabetically
                         3. Sorting products based on sold
+    
+        * Sorting is fundamental things in the computer science.
+        * Bubble, selection and insertion sort are all roughly equivalent
+        * All have avgerage time complexity that are quadratic
+        * We can do better .... but we need more complex algorithms.
 */
 let numbers = [1, 4, 77, 84, 2, 10];
 // a is the first element for comparison, b is the second element for comparison
@@ -66,9 +71,22 @@ console.log(array);
 
 // sort -Infinity < 0 < Infinity < NaN
 array.sort((a, b) => {
-    if(isNaN(a)){
-        return 1 - isNaN(b)
-    }else{
+    if (isNaN(a)) {
+        return 1 - isNaN(b);
+    } else {
         return a - b;
     }
-})
+});
+
+/*
+        ***  Comparison of Elementary Sorting Algorithms ***
+                => Bubble Sort, Selection, Insertion Sort 'space complexity(O(1))'
+                => Bubble Sort, Selection, Insertion sort 'avg complexity(O(n *2))'
+                => Bubble Sort, Selection, Insertion sort 'worst complexity(O(n *2))'
+                => Bubble Sort, Insertion sort 'best complexity(O(n))' and Selection Sort (O(n))
+        Note That: 
+            => if our data is the totally sorted, bubble sort, and insertion sort work very good in that situation.
+            => Selection sort is not good if our data nearly sorted data.
+            => if we data new data, 'insertion sort' figure out where is the place we have to put, but selection sort resort entire things, it's not figure out right way where you have to put.
+
+*/
