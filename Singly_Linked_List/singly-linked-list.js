@@ -16,6 +16,21 @@
             => Index is order!
             => Insertion and deletion can be expensive
             => Can quickly be accessed via specific index
+
+    *** Time Complexity of Singly Linked List ***
+        => Insertion(Push(), unshift()) ----- O(1)
+                            insert() --- O(N)
+        => Removal(pop(), shift()) ----- O(1)
+                                    remove() --- O(N)
+        => Searching(get()) --- O(N)
+        => Access(get()) --- O(N)
+
+*/
+/*
+    *** Benefits of the Singly Linked List ***
+        => Singly Linked List are an execellent alternative to arrays when insertion and deletion at the beginning are frequently required.
+        => Arrays contain a built in index whereas Linked Lists do not
+        => The idea of a list data structure that consists of nodes is the foundation for other data structures like Stacks and Queues.
 */
 // create a new node
 class Node {
@@ -65,10 +80,10 @@ class SinglyLinkedList {
             newTail = current;
             current = current.next;
         }
-        // assign new tail before tail node
-        this.tail = newTail;
         // assign null node next value
         this.tail.next = null;
+        // assign new tail before tail node
+        this.tail = newTail;
         // decrement the length by 1
         this.length--;
         // if there is not length, set the default constructore value
@@ -121,10 +136,105 @@ class SinglyLinkedList {
         // return our linked list
         return this;
     }
+    // get(Retrieving a node by it's position in the linked list)
+    get(index) {
+        // if the index is less than 0 or greater than or equal to the length of the list, return null
+        if (index < 0 || index >= this.length) {
+            return null;
+        }
+        // inital index count
+        let count = 0;
+        // current node
+        let current = this.head;
+        // loop through the list until you reach the index
+        while (count !== index) {
+            count++;
+            current = current.next;
+        }
+        //retun the node at that specific index
+        return current;
+    }
+
+    // Set(changing the value of a node based on it's position in the linked list)
+    set(index, value) {
+        // useing get function for getting the specific node
+        let foundNodeByIndex = this.get(index);
+        // if the node is not found, return false
+        if (!foundNodeByIndex) return false;
+        // if the node is found, set the value of that node to be the value passed to the function and return true
+        if (foundNodeByIndex) {
+            foundNodeByIndex.value = value;
+            return true;
+        }
+    }
+    // Insert(Adding a node to the linked list at a specific position)
+    insert(index, value) {
+        // if the index is less than 0 or greater than the length, return false
+        if (index < 0 || index > this.length) return false;
+        // if the index is the same as the length , push a new node to the end of the list
+        if (index === this.length) return !!this.push(value);
+        // if the index is 0, unshift a new node to the start of the list
+        if (index === 0) return !!this.unshift(value);
+
+        // creating new node
+        let newNode = new Node(value);
+        // getting previous node
+        let previousNode = this.get(index - 1);
+        // temp node set on the temp variable
+        let temp = previousNode.next;
+        // inserting new node with previous node
+        previousNode.next = newNode;
+        // after previous node, connected with new node next
+        newNode.next = temp;
+        // increment the length
+        this.length++;
+        return true;
+    }
+    // Remove(Removing a node from the linked list at a specific position)
+    remove(index) {
+        // if the index is less than 0 or greater than the length, retun undefined
+        if (index < 0 || index > this.length) return undefined;
+        // if the index is the same as the length, removing node at the end
+        if (index === this.length - 1) return this.pop();
+        // if the index is 0, removing node at the beginning
+        if (index === 0) return this.shift();
+        // previous node of the removing node
+        let previousNode = this.get(index - 1);
+        // removed node
+        let removedNode = previousNode.next;
+        // set the next property on that node to be the next of the next node
+        previousNode.next = removedNode.next;
+        // decrement the length
+        this.length--;
+        // return the value of the node removed
+        return removedNode;
+    }
+    // Reverse(Reversing the linked list in place!)
+    reverse() {
+        // create a variable called node and initialize it to the head property
+        let node = this.head;
+        // swap the head and tail
+        this.head = this.tail;
+        this.tail = node;
+        // create a variable called next
+        let next;
+        // create a variable called prev
+        let prev;
+        // loop through the list
+        for (let i = 0; i < this.length; i++) {
+            next = node.next;
+            node.next = prev;
+            console.log(node, "inside node");
+            prev = node;
+            console.log(next, "inside next");
+            node = next;
+        }
+        return this;
+    }
 }
 const list = new SinglyLinkedList();
 list.push(5);
 list.push(19);
 list.push(39);
-console.log(list.unshift(30));
+console.log(list.remove(2));
 console.log(list);
