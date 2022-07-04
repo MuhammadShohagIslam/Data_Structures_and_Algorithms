@@ -219,7 +219,7 @@ class SinglyLinkedList {
         // create a variable called next
         let next;
         // create a variable called prev
-        let prev;
+        let prev = null;
         // loop through the list
         for (let i = 0; i < this.length; i++) {
             next = node.next;
