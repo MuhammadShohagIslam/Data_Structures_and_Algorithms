@@ -67,6 +67,7 @@ class Stack {
     }
 }
 let stack = new Stack();
+stack.push(3);
 stack.push(5);
 stack.push(15);
 stack.push(25); // lastly pushed node
