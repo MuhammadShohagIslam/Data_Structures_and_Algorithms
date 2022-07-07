@@ -3,6 +3,7 @@
             => A data structure that consists of nodes in a parent / child relationship.
             => We can store any kind of data whatever you want. 
             => Trees is 'nonlinear'(they can have branch, more than one path), List is 'linear'(One things, then next and the next, evrything in one line or row)
+            => 
         
         *** Tree Terminology ***
             => Root: The top node in a tree.
@@ -27,6 +28,7 @@
 
     ***  Speacial Binary Search Tree ***
             => Every parent node has at most two children
+            => With sort of element
             => Every node to the left of a parent node is always less than the parent.
             => Every node to the right of a parent node is always greater than the parent.
 */
