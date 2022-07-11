@@ -11,7 +11,6 @@ class Node {
         this.priority = priority;
     }
 }
-
 // make a PriorityQueue class
 class PriorityQueue {
     constructor() {
@@ -37,7 +36,7 @@ class PriorityQueue {
             // create a variable to store parent node
             let parent = this.values[parentIdx];
             // checking element is the greater than parent, if it is, swaping
-            if (element.priority <= parent.priority) break;
+            if (element.priority >= parent.priority) break;
             this.values[parentIdx] = element;
             this.values[idx] = parent;
             // set the parentIdx to the idx, and start over!
@@ -47,7 +46,7 @@ class PriorityQueue {
     // dequeue(method removes root element, returns it and rearranges heap using priority)
     dequeue() {
         // create a variable to store root element
-        let max = this.values[0];
+        let min = this.values[0];
         // remove last element
         let end = this.values.pop();
 
@@ -57,7 +56,7 @@ class PriorityQueue {
             // create a method sinking down for swaping
             this.sinkDown();
         }
-        return max;
+        return min;
     }
     sinkDown() {
         // create a variable to store index number first one
@@ -65,7 +64,7 @@ class PriorityQueue {
         // create a variable to store length of the priority queue properties
         let length = this.values.length;
         // create a variable to store current node
-        let element = this.values[idx];
+        let element = this.values[0];
 
         while (true) {
             // create a variable which is the store  left childret index
@@ -80,9 +79,8 @@ class PriorityQueue {
             if (leftChildIdx < length) {
                 leftChildIElement = this.values[leftChildIdx];
                 // checking left node priority greater than element priority
-                if (leftChildIElement.priority > element.priority) {
+                if (leftChildIElement.priority < element.priority) {
                     swap = leftChildIdx;
-                    console.log("bbbbbbbbbbbbbbbb");
                 }
             }
             // checking right child node it's out of bound
@@ -91,11 +89,10 @@ class PriorityQueue {
                 // checking left node priority greater than element priority
                 if (
                     (swap === null &&
-                        rightChildElement.priority > element.priority) ||
+                        rightChildElement.priority < element.priority) ||
                     (swap !== null &&
-                        rightChildElement.priority > leftChildIElement.priority)
+                        rightChildElement.priority < leftChildIElement.priority)
                 ) {
-                    console.log("aaaaaaaaaaaaaa");
                     swap = rightChildIdx;
                 }
             }
@@ -108,7 +105,6 @@ class PriorityQueue {
         }
     }
 }
-
 const priorityQueue = new PriorityQueue();
 priorityQueue.enqueue("commom cold", 1);
 priorityQueue.enqueue("gunshot", 5);
