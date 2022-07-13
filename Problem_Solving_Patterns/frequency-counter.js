@@ -2,6 +2,7 @@
     *** Frequency Counter ***
         => This pattern uses object or sets to collect values / frequency of values.
         => This can always avoid the need for nested loops or O(N*2) operation with arrays / strings.
+        => It's the meaning is the another thing is that comparing.
     Note That: multiple loop is the bast better than nested loop in the one function
 */
 // ***  An Example ** //
@@ -142,4 +143,75 @@ function validAnagram(array1, array2) {
     }
     return true;
 }
-console.log(validAnagram("anagram", "naaagrm"));
+// console.log(validAnagram("anagram", "naaagrm"));
+
+/*
+
+    Write a function called samFrequency. Given two positive integers, find out if the two nmbers have the same frequency of digits.
+
+*/
+// function samFrequency(int1, int2) {
+//     return int1 < int2 ? true : false;
+// }
+function sameFrequency(num1, num2) {
+    let strNumber = num1.toString();
+    let strNumber1 = num2.toString();
+    if (strNumber.length !== strNumber1.length) return null;
+    let lookup = {};
+    for (let value of strNumber) {
+        lookup[value] ? (lookup[value] += 1) : (lookup[value] = 1);
+    }
+    for (let value of strNumber1) {
+        if (!lookup[value]) {
+            return false;
+        } else {
+            lookup[value]--;
+        }
+    }
+    return true;
+}
+// console.log(sameFrequency(1821, 2811));
+/*
+
+    Write a function called areThereDuplicates. Which accepts a variable number of arguments, and check whether there are any duplicates among the arguments passed in.You can solev the problem with frequency pattern or the multiple pointers pattern.
+
+*/
+// problem solve using with frequency counter technique
+function areThereDuplicates(...arg) {
+    if (arg.length === 0) return null;
+    let frequencyCounter = {};
+    for (let value of arg) {
+        frequencyCounter[value]
+            ? (frequencyCounter[value] += 1)
+            : (frequencyCounter[value] = 1);
+    }
+    for (let key in frequencyCounter) {
+        if (frequencyCounter[key] > 1) {
+            return true;
+        }
+    }
+    return false;
+}
+// console.log(areThereDuplicates(1, 2, 3, 4));
+
+// problem solve using with multiple pointer technique
+function areThereDuplicates1(...arg) {
+    // sort the arg array
+    arg.sort((a, b) => a - b);
+    // two pointer
+    let start = 0;
+    let next = 1;
+    while (next < arg.length) {
+        if (arg[start] === arg[next]) return true;
+        start++;
+        next++;
+    }
+    return false;
+}
+console.log(areThereDuplicates1(1, 2, 3, 4, 1));
+
+// problem solve using with one linear solution technique
+function areThereDuplicates2(...arg) {
+    return new Set(arg).size !== arg.length;
+}
+console.log(areThereDuplicates2(1, 2, 3, 4, 1));
