@@ -103,4 +103,4 @@ function findLongestSubstring(str) {
     }
     return longest;
 }
-console.log(findLongestSubstring("longestsubstring"));
+console.log(findLongestSubstring("longestsubstrings"));
