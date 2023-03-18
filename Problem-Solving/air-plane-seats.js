@@ -122,3 +122,5 @@ console.log(result.autoAssignedSeats)
 
 // time complexity: 0(n^2)
 // space complexity: 0(n)
+
+// when i write code i follow Muhamad Risman code.
