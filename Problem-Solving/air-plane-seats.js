@@ -1,6 +1,6 @@
 class AirplaneSeatingController {
-    constructor(seats, passengers = 0) {
-        this.seats = this.createSeats(seats);
+    constructor(seats, passengers = 1) {
+        this.seats = this.createSeats([...seats]);
         this.remainingPassengers = passengers;
         this.assignedSeats = this.seats;
         this.nextSeatNumber = 1;
@@ -8,7 +8,7 @@ class AirplaneSeatingController {
     createSeats(input) {
         const maxColumns = Math.max(...input.map((arr) => arr[1]));
         let seats = [];
-        for (let colI = 0; colI < maxColumns; colI++) {
+        for (let colIndex = 0; colIndex < maxColumns; colIndex++) {
             let block = [];
 
             input.forEach((arr) => {
@@ -18,7 +18,7 @@ class AirplaneSeatingController {
                     return;
                   }
                 for (let i = 0; i < row; i++) {
-                    if (col - colI > 0) {
+                    if (col - colIndex > 0) {
                         block.push("seat");
                     } else {
                         block.push("empty");
@@ -49,18 +49,18 @@ class AirplaneSeatingController {
     assignAisleSeats() {
         let seats = [...this.seats];
 
-        seats.forEach((row, rowI) => {
-            row.forEach((seat, seatI) => {
-                if (seatI > 0 && seatI < row.length) {
+        seats.forEach((row, rowIndex) => {
+            row.forEach((seat, seatIndex) => {
+                if (seatIndex > 0 && seatIndex < row.length) {
                     if (this.remainingPassengers < 1) {
                         return;
                       }
                     if (
                         seat === "seat" &&
-                        (row[seatI - 1] === "aisle" ||
-                            row[seatI + 1] === "aisle")
+                        (row[seatIndex - 1] === "aisle" ||
+                            row[seatIndex + 1] === "aisle")
                     ) {
-                        seats[rowI][seatI] = this.nextSeatNumber;
+                        seats[rowIndex][seatIndex] = this.nextSeatNumber;
                         this.nextSeatNumber++;
                         this.remainingPassengers--;
                     }
@@ -72,16 +72,16 @@ class AirplaneSeatingController {
 
     assignWindowSeats() {
         let seats = [...this.seats];
-        seats.forEach((row, rowI) => {
-            row.forEach((seat, seatI) => {
+        seats.forEach((row, rowIndex) => {
+            row.forEach((seat, seatIndex) => {
                 if (this.remainingPassengers < 1) {
                     return;
                   }
                 if (
                     seat === "seat" &&
-                    (seatI === 0 || seatI === row.length - 1)
+                    (seatIndex === 0 || seatIndex === row.length - 1)
                 ) {
-                    seats[rowI][seatI] = this.nextSeatNumber;
+                    seats[rowIndex][seatIndex] = this.nextSeatNumber;
                     this.nextSeatNumber++;
                     this.remainingPassengers--;
                 }
@@ -93,21 +93,21 @@ class AirplaneSeatingController {
     assignMiddleSeats() {
         let seats = [...this.seats];
 
-        seats.forEach((row, rowI) => {
-            row.forEach((seat, seatI) => {
+        seats.forEach((row, rowIndex) => {
+            row.forEach((seat, seatIndex) => {
                 if (this.remainingPassengers < 1) {
                     return;
                   }
                 if (
                     seat === "seat" &&
                     !(
-                        seatI === 0 ||
-                        seatI === row.length - 1 ||
-                        row[seatI - 1] === "aisle" ||
-                        row[seatI + 1] === "aisle"
+                        seatIndex === 0 ||
+                        seatIndex === row.length - 1 ||
+                        row[seatIndex - 1] === "aisle" ||
+                        row[seatIndex + 1] === "aisle"
                     )
                 ) {
-                    seats[rowI][seatI] = this.nextSeatNumber;
+                    seats[rowIndex][seatIndex] = this.nextSeatNumber;
                     this.nextSeatNumber++;
                     this.remainingPassengers--;
                 }
@@ -117,7 +117,7 @@ class AirplaneSeatingController {
     }
 }
 
-const result = new AirplaneSeatingController([[3,2],[4,3],[2,3],[3,4]], 20);
+const result = new AirplaneSeatingController([[3,2],[4,3],[2,3],[3,4]], 30);
 console.log(result.autoAssignedSeats)
 
 // time complexity: 0(n^2)
