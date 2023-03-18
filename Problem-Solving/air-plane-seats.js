@@ -1,6 +1,7 @@
 class AirplaneSeatingController {
     constructor(seats, passengers = 0) {
         this.seats = this.createSeats(seats);
+        this.remainingPassengers = passengers;
         this.assignedSeats = this.seats;
         this.nextSeatNumber = 1;
     }
@@ -13,7 +14,9 @@ class AirplaneSeatingController {
             input.forEach((arr) => {
                 const row = arr[0];
                 let col = arr[1];
-
+                if (this.remainingPassengers < 1) {
+                    return;
+                  }
                 for (let i = 0; i < row; i++) {
                     if (col - colI > 0) {
                         block.push("seat");
@@ -33,6 +36,7 @@ class AirplaneSeatingController {
         this.assignAllSeats();
         return {
             seats: this.assignedSeats,
+            remainingPassengers: this.remainingPassengers,
         };
     }
 
@@ -48,6 +52,9 @@ class AirplaneSeatingController {
         seats.forEach((row, rowI) => {
             row.forEach((seat, seatI) => {
                 if (seatI > 0 && seatI < row.length) {
+                    if (this.remainingPassengers < 1) {
+                        return;
+                      }
                     if (
                         seat === "seat" &&
                         (row[seatI - 1] === "aisle" ||
@@ -55,6 +62,7 @@ class AirplaneSeatingController {
                     ) {
                         seats[rowI][seatI] = this.nextSeatNumber;
                         this.nextSeatNumber++;
+                        this.remainingPassengers--;
                     }
                 }
             });
@@ -66,12 +74,16 @@ class AirplaneSeatingController {
         let seats = [...this.seats];
         seats.forEach((row, rowI) => {
             row.forEach((seat, seatI) => {
+                if (this.remainingPassengers < 1) {
+                    return;
+                  }
                 if (
                     seat === "seat" &&
                     (seatI === 0 || seatI === row.length - 1)
                 ) {
                     seats[rowI][seatI] = this.nextSeatNumber;
                     this.nextSeatNumber++;
+                    this.remainingPassengers--;
                 }
             });
         });
@@ -83,6 +95,9 @@ class AirplaneSeatingController {
 
         seats.forEach((row, rowI) => {
             row.forEach((seat, seatI) => {
+                if (this.remainingPassengers < 1) {
+                    return;
+                  }
                 if (
                     seat === "seat" &&
                     !(
@@ -94,6 +109,7 @@ class AirplaneSeatingController {
                 ) {
                     seats[rowI][seatI] = this.nextSeatNumber;
                     this.nextSeatNumber++;
+                    this.remainingPassengers--;
                 }
             });
         });
